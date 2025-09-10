@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Compress from "./pages/Compress";
 import PageNotFound from "./pages/PageNotFound";
 import PWAInstallBox from "./components/PWAInstallBox";
+import NavMobile from "./components/MobileNav";
 import './App.css';
 
 function App() {
@@ -14,11 +15,15 @@ function App() {
     <Router>
       <Navbar />
       <PWAInstallBox />
-      <Routes>
-        <Route path="/" element={<Home imgRef={imgRef} />} />
-         <Route path="/compress" element={<Compress />} />
-           <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <NavMobile />
+      <div className="min-h-screen pb-20 md:pb-0"> {/* <-- Add bottom padding for mobile navbar */}
+        <Routes>
+          <Route path="/" element={<Home imgRef={imgRef} />} />
+          <Route path="/compress" element={<Compress />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </div>
+      <NavMobile />
     </Router>
   );
 }

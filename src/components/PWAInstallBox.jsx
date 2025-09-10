@@ -8,10 +8,10 @@ export default function PWAInstallBox() {
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   useEffect(() => {
-    if (!isMobile) return; // Only show on mobile
+    if (!isMobile) return; // ❌ Don't even listen on PC
 
     const handler = (e) => {
-      e.preventDefault(); // Stop auto prompt
+      e.preventDefault(); // Stop browser auto-prompt
       setDeferredPrompt(e);
       setShowBox(true);
     };
@@ -28,14 +28,11 @@ export default function PWAInstallBox() {
       console.log("User choice:", choice.outcome);
       setDeferredPrompt(null);
       setShowBox(false);
-    } else {
-      alert(
-        "Your browser does not support automatic installation. Use browser menu to 'Add to Home Screen'."
-      );
     }
   };
 
-  if (!showBox) return null;
+  // ❌ Render nothing on desktop
+  if (!showBox || !isMobile) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
