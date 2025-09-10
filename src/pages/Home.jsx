@@ -12,7 +12,7 @@ function App() {
   const imgRef = useRef(null);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+    <div className="min-h-screen  flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold mb-6 text-black">Abhaya Photo Editor</h1>
       <Toolbar setImage={setImage} imgRef={imgRef} />
       {image && <Editor image={image} filters={filters} imgRef={imgRef} />}
