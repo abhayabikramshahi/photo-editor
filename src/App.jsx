@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Navbar from "./components/Navbar";
 import Compress from "./pages/Compress";
 import PageNotFound from "./pages/PageNotFound";
+import PWAInstallBox from "./components/PWAInstallBox";
 import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <PWAInstallBox />
       <Routes>
         <Route path="/" element={<Home imgRef={imgRef} />} />
          <Route path="/compress" element={<Compress />} />
