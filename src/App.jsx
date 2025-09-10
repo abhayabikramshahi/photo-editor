@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold mb-6 text-red-600">Vite Photo Editor</h1>
+      <h1 className="text-3xl font-bold mb-6 text-red-600">Abhaya Photo Editor</h1>
       <Toolbar setImage={setImage} imgRef={imgRef} />
       {image && <Editor image={image} filters={filters} imgRef={imgRef} />}
       {image && <Filters filters={filters} setFilters={setFilters} />}
