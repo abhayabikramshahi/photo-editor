@@ -1,39 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export default function PWAInstallBox() {
-  const [deferredPrompt, setDeferredPrompt] = useState(null)
-  const [showBox, setShowBox] = useState(false)
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showBox, setShowBox] = useState(false);
+
+  // Detect if device is mobile
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   useEffect(() => {
+    if (!isMobile) return; // Only show on mobile
+
     const handler = (e) => {
-      e.preventDefault() // Stop automatic prompt
-      setDeferredPrompt(e)
-      setShowBox(true)   // Show our custom install box
-    }
+      e.preventDefault(); // Stop auto prompt
+      setDeferredPrompt(e);
+      setShowBox(true);
+    };
 
-    window.addEventListener('beforeinstallprompt', handler)
+    window.addEventListener("beforeinstallprompt", handler);
 
-    return () => window.removeEventListener('beforeinstallprompt', handler)
-  }, [])
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, [isMobile]);
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return
-    deferredPrompt.prompt()               // Show native install prompt
-    const choiceResult = await deferredPrompt.userChoice
-    console.log('User choice:', choiceResult.outcome)
-    setDeferredPrompt(null)
-    setShowBox(false)
-  }
+    if (deferredPrompt) {
+      deferredPrompt.prompt(); // Show native prompt
+      const choice = await deferredPrompt.userChoice;
+      console.log("User choice:", choice.outcome);
+      setDeferredPrompt(null);
+      setShowBox(false);
+    } else {
+      alert(
+        "Your browser does not support automatic installation. Use browser menu to 'Add to Home Screen'."
+      );
+    }
+  };
 
-  const handleClose = () => setShowBox(false)
-
-  if (!showBox) return null
+  if (!showBox) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-xs text-center">
         <h2 className="text-lg font-bold mb-2">Install Abhaya Photo Editor</h2>
-        <p className="text-gray-700 mb-4">Install this app on your device for a better experience!</p>
+        <p className="text-gray-700 mb-4">
+          Install this app on your device for a better experience!
+        </p>
         <div className="flex justify-center gap-4">
           <button
             onClick={handleInstall}
@@ -42,7 +52,7 @@ export default function PWAInstallBox() {
             Install
           </button>
           <button
-            onClick={handleClose}
+            onClick={() => setShowBox(false)}
             className="bg-gray-300 text-gray-800 px-4 py-2 rounded font-medium"
           >
             Cancel
@@ -50,5 +60,5 @@ export default function PWAInstallBox() {
         </div>
       </div>
     </div>
-  )
+  );
 }
