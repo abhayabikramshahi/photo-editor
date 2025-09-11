@@ -1,7 +1,15 @@
 import React from "react";
 
 export default function Editor({ image, filters, imgRef }) {
-  const filterStyle = `brightness(${filters.brightness}%) grayscale(${filters.grayscale}%) sepia(${filters.sepia}%)`;
+  const filterStyle = `
+    brightness(${filters.brightness}%)
+    contrast(${filters.contrast}%)
+    saturate(${filters.saturate}%)
+    grayscale(${filters.grayscale}%)
+    sepia(${filters.sepia}%)
+    blur(${filters.blur}px)
+    hue-rotate(${filters.hueRotate}deg)
+  `;
 
   return (
     <div className="mb-6">
